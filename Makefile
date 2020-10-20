@@ -4,10 +4,12 @@ TARGET_SHARED := lib$(TARGET_FIFO).sh
 TARGET_STATIC := lib$(TARGET_FIFO).a
 SRCDIR = ./src
 INCDIRS = ./include
+INCDIRS += ./
 
 SRCS =  croutine.c heap_3.c list.c queue.c tasks.c
 SRCS += event_groups.c port.c  stream_buffer.c  timers.c
 
+# SRCS += heap_3.c  list.c  opencm3.c  port.c
 
 BUILDDIR = .build/
 

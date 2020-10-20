@@ -237,22 +237,37 @@ void vPortSVCHandler( void )
 }
 /*-----------------------------------------------------------*/
 
+// static void prvPortStartFirstTask( void )
+// {
+//     __asm volatile (
+//         " ldr r0, =0xE000ED08 	\n"/* Use the NVIC offset register to locate the stack. */
+//         " ldr r0, [r0] 			\n"
+//         " ldr r0, [r0] 			\n"
+//         " msr msp, r0			\n"/* Set the msp back to the start of the stack. */
+//         " cpsie i				\n"/* Globally enable interrupts. */
+//         " cpsie f				\n"
+//         " dsb					\n"
+//         " isb					\n"
+//         " svc 0					\n"/* System call to start first task. */
+//         " nop					\n"
+//         " .ltorg				\n"
+//         );
+// }
 static void prvPortStartFirstTask( void )
 {
-    __asm volatile (
-        " ldr r0, =0xE000ED08 	\n"/* Use the NVIC offset register to locate the stack. */
-        " ldr r0, [r0] 			\n"
-        " ldr r0, [r0] 			\n"
-        " msr msp, r0			\n"/* Set the msp back to the start of the stack. */
-        " cpsie i				\n"/* Globally enable interrupts. */
-        " cpsie f				\n"
-        " dsb					\n"
-        " isb					\n"
-        " svc 0					\n"/* System call to start first task. */
-        " nop					\n"
-        " .ltorg				\n"
-        );
+    __asm volatile (" ldr r0, =0xE000ED08 	\n"/* Use the NVIC offset register to locate the stack. */);
+    __asm volatile (" ldr r0, [r0] 			\n");
+    __asm volatile (" ldr r0, [r0] 			\n");
+    __asm volatile (" msr msp, r0			\n");/* Set the msp back to the start of the stack. */
+    __asm volatile (" cpsie i				\n");/* Globally enable interrupts. */
+    __asm volatile (" cpsie f				\n");
+    __asm volatile (" dsb					\n");
+    __asm volatile (" isb					\n");
+    __asm volatile (" svc 0					\n");/* System call to start first task. */
+    __asm volatile (" nop					\n");
+    __asm volatile (" .ltorg				\n");
 }
+
 /*-----------------------------------------------------------*/
 
 /*
